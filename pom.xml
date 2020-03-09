@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Gatling</groupId>
+  <artifactId>GatlingDemo</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+
+    <gatling.version>3.3.0</gatling.version><!--3.3.0-->
+    <gatling-maven-plugin.version>3.0.4</gatling-maven-plugin.version><!--3.0.4-->
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-app</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-recorder</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/cc.akkaha/pea &ndash;&gt;-->
+    <dependency>
+      <groupId>cc.akkaha</groupId>
+      <artifactId>pea_2.12</artifactId>
+      <version>0.7.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>${gatling-maven-plugin.version}</version>
+
+        <configuration>
+          <!-- the name of the single Simulation class to run -->
+          <simulationClass>testcase_demo</simulationClass>
+          <!-- if the plugin should run multiple simulations sequentially -->
+          <runMultipleSimulations>true</runMultipleSimulations>
+          <!-- include filters, see dedicated section below -->
+          <includes>
+            <include>testcase_demo</include>
+          </includes>
+          <!-- exclude filters, see dedicated section below -->
+          <excludes>
+            <exclude></exclude>
+          </excludes>
+          <!-- to disable generating HTML reports -->
+          <noReports>false</noReports>
+          <!-- to only trigger generating HTML reports from the log file contained in folder parameter -->
+          <reportsOnly></reportsOnly>
+          <!-- short text that will be displayed in the HTML reports -->
+          <runDescription>design level training demo</runDescription>
+          <!-- skip executing this plugin -->
+          <skip>false</skip>
+          <!-- report failure in case of assertion failure, typically to fail CI pipeline -->
+          <failOnError>true</failOnError>
+          <!-- keep on executing multiple simulations even if one fails -->
+          <continueOnAssertionFailure>false</continueOnAssertionFailure>
+          <!-- report results to Jenkins JUnit support -->
+          <useOldJenkinsJUnitSupport>false</useOldJenkinsJUnitSupport>
+          <jvmArgs>
+            <!-- pass extra parameters to the Gatling JVM -->
+            <jvmArg>-Dfile.encoding=UTF-8</jvmArg>
+          </jvmArgs>
+          <!-- if above option should override the defaults instead of replacing them -->
+          <overrideJvmArgs>false</overrideJvmArgs>
+          <!-- if System properties from the maven JVM should be propagated to the Gatling forked one -->
+          <propagateSystemProperties>true</propagateSystemProperties>
+          <compilerJvmArgs>
+            <!-- pass extra parameters to the Compiler JVM -->
+            <compilerJvmArg></compilerJvmArg>
+          </compilerJvmArgs>
+          <!-- if above option should override the defaults instead of replacing them -->
+          <overrideCompilerJvmArgs>false</overrideCompilerJvmArgs>
+          <!-- extra options to be passed to scalac -->
+          <extraScalacOptions>
+            <extraScalacOption></extraScalacOption>
+          </extraScalacOptions>
+          <!-- if compiler should be disabled, typically another plugin has already compiled sources -->
+          <disableCompiler>false</disableCompiler>
+          <!-- where the simulations to be compiled are located -->
+          <simulationsFolder>${project.basedir}/src/test/scala</simulationsFolder>
+          <!-- where the test resources are located -->
+          <resourcesFolder>${project.basedir}/src/test/resources</resourcesFolder>
+          <!-- where the simulation log and the HTML reports will be generated -->
+          <resultsFolder>${project.basedir}/target/gatling/results</resultsFolder>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
